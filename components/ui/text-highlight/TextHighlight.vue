@@ -1,5 +1,5 @@
 <template>
-  <span :class="cn('inline-block px-1 pb-1', props.class)"><slot /></span>
+  <span :class="cn('inline-block px-1 pb-0', props.class)"><slot /></span>
 </template>
 
 <script setup lang="ts">

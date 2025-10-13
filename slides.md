@@ -148,7 +148,8 @@ disabled: true
  <div absolute right-0 top-0 w="1/2" z="12" p="2" text-white>
  <span>什么是主动光安全系统？</span>
  <br />
- <span text-sm>集成光学材料、智能传感与响应控制技术的先进安全系统，旨在通过​​主动发光、动态提示与环境交互​​的方式，提升人、车、环境之间的可视化与通信能力，从而预防事故、增强安全性能。</span>
+ <span text-sm>集成光学材料、智能传感与响应控制技术的先进安全系统，旨在通过​<TextHighlight class="bg-gradient-to-r from-blue-300 to-red-300">​主动发光、动态提示与环境交互​
+      </TextHighlight>​的方式，提升人、车、环境之间的可视化与通信能力，从而预防事故、增强安全性能。</span>
  </div>
 
  <div w="1/2" absolute right-0 top-0 bottom-0 style="background: linear-gradient(180deg, #53658f99 0%,  #ffffff00 100%)" z-11 class="bg-opacity-200"></div>
@@ -159,7 +160,7 @@ disabled: true
 <div absolute inset-0 w-full flex="~ row">
   <h5 absolute z="20" w="1/2" p="2" text-center>新能源光织物的研发意义</h5>
  <span absolute left-0 top="50" w="1/2" z="12" text-sm word-wrap p-5>
-  新能源光织物作为一种融合光电材料与纺织技术的新型功能材料，具备柔性、轻质、高亮度及环境响应等特点。通过​​自发光、动态提示与环境自适应​​能力，显著增强人、车、环境在低可视条件下的安全性，尤其适用于交通、救援、户外作业等领域。
+  新能源光织物作为一种融合光电材料与纺织技术的新型功能材料，具备​<TextHighlight class="bg-gradient-to-r from-blue-300 to-red-300">柔性、轻质、高亮度及环境响应</TextHighlight>等特点。通过​​自发光、动态提示与环境自适应​​能力，显著增强人、车、环境在低可视条件下的安全性，尤其适用于交通、救援、户外作业等领域。
  </span>
   <img src="/4-2.png" w="160" absolute left="70" top="34" z="12"/>
  <img src="/4-1.jpg" w="1/2" absolute right-0 top-0/>
