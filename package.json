@@ -1,0 +1,44 @@
+{
+  "name": "ppt-showcase",
+  "version": "1.0.0",
+  "description": "我的PPT展示网站",
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "build:shell": "bash build-all.sh",
+    "dev": "echo '🎨 PPT展示站开发模式' && echo '' && echo '📝 创建新PPT: ./create-ppt.sh [name] [title]' && echo '🖥️  查看首页: npm run dev:home' && echo '📊 开发PPT: cd ppt/[ppt-name] && npm run dev' && echo '🔧 查看帮助: ./create-ppt.sh --help'",
+    "dev:home": "python3 -m http.server 8080 || python -m http.server 8080",
+    "dev:ppt": "echo '请指定PPT名称: cd ppt/[ppt-name] && npm run dev'",
+    "preview": "python3 -m http.server 8080 --directory dist || python -m http.server 8080 --directory dist",
+    "create-ppt": "./create-ppt.sh",
+    "list-ppts": "echo '📋 已有的PPT:' && ls -la ppt/ | grep '^d' | awk '{print \"  - \" $9}' | grep -v '\\.$'",
+    "clean": "rm -rf dist/ ppt/*/node_modules/ ppt/*/dist/",
+    "install:all": "echo '📦 安装所有依赖...' && npm install && ./build-all.sh > /dev/null 2>&1 && echo '✅ 安装完成！使用 npm run list-ppts 查看所有PPT'"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.2.4",
+    "@slidev/theme-default": "^0.25.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.545.0",
+    "slidev-addon-hls-player": "^0.1.6",
+    "slidev-addon-qrcode": "^1.0.2",
+    "tailwind-merge": "^3.3.1",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.2.3",
+    "@types/node": "^20.0.0",
+    "playwright-chromium": "^1.40.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-slidev": "^1.0.5"
+  },
+  "keywords": [
+    "slidev",
+    "presentation",
+    "vue",
+    "markdown"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
