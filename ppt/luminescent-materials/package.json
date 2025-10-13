@@ -1,10 +1,10 @@
 {
-  "name": "slidev-presentation",
+  "name": "luminescent-materials-ppt",
   "version": "1.0.0",
-  "description": "A presentation built with Slidev",
+  "description": "长余辉自发光材料演示文稿",
   "type": "module",
   "scripts": {
-    "build": "slidev build",
+    "build": "slidev build --base /ppt/luminescent-materials/ --out ../../dist/ppt/luminescent-materials",
     "dev": "slidev --open",
     "export": "slidev export"
   },
