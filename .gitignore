@@ -28,7 +28,32 @@ dist/
 .env.production.local
 
 # Slidev临时文件
-.slidev/
+.slidev
+
+# IDE文件
+.vscode/
+.idea/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+*.tmp
+*.temp
+
+# 缓存文件
+.cache/
+.eslintcache
+.prettiercache
+
+# 构建分析文件
+stats.json
+build-report.json/
 
 # 系统文件
 .DS_Store

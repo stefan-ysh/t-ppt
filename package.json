@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node build.js",
+    "build:enhanced": "./build-enhanced.sh",
     "build:shell": "bash build-all.sh",
     "dev": "echo '🎨 PPT展示站开发模式' && echo '' && echo '📝 创建新PPT: ./create-ppt.sh [name] [title]' && echo '🖥️  查看首页: npm run dev:home' && echo '📊 开发PPT: cd ppt/[ppt-name] && npm run dev' && echo '🔧 查看帮助: ./create-ppt.sh --help'",
     "dev:home": "python3 -m http.server 8080 || python -m http.server 8080",
@@ -13,7 +14,12 @@
     "create-ppt": "./create-ppt.sh",
     "list-ppts": "echo '📋 已有的PPT:' && ls -la ppt/ | grep '^d' | awk '{print \"  - \" $9}' | grep -v '\\.$'",
     "clean": "rm -rf dist/ ppt/*/node_modules/ ppt/*/dist/",
-    "install:all": "echo '📦 安装所有依赖...' && npm install && ./build-all.sh > /dev/null 2>&1 && echo '✅ 安装完成！使用 npm run list-ppts 查看所有PPT'"
+    "install:all": "echo '📦 安装所有依赖...' && npm install && ./build-all.sh > /dev/null 2>&1 && echo '✅ 安装完成！使用 npm run list-ppts 查看所有PPT'",
+    "lint": "eslint . --ext .js,.ts,.vue --ignore-path .gitignore",
+    "lint:fix": "eslint . --ext .js,.ts,.vue --ignore-path .gitignore --fix",
+    "format": "prettier --write \"**/*.{js,ts,vue,md,json}\"",
+    "type-check": "tsc --noEmit",
+    "analyze": "npm run build && npx webpack-bundle-analyzer dist/stats.json"
   },
   "dependencies": {
     "@slidev/cli": "^52.2.4",
@@ -29,9 +35,16 @@
   "devDependencies": {
     "@iconify-json/mdi": "^1.2.3",
     "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vue/eslint-config-typescript": "^12.0.0",
+    "eslint": "^8.0.0",
+    "eslint-plugin-vue": "^9.0.0",
     "playwright-chromium": "^1.40.0",
     "prettier": "^3.6.2",
-    "prettier-plugin-slidev": "^1.0.5"
+    "prettier-plugin-slidev": "^1.0.5",
+    "typescript": "^5.0.0",
+    "webpack-bundle-analyzer": "^4.9.0"
   },
   "keywords": [
     "slidev",
