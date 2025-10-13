@@ -1,0 +1,113 @@
+{
+  "name": "PPT展示站",
+  "short_name": "PPT展示",
+  "description": "基于 Slidev 的专业 PPT 展示平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#764ba2",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "zh-CN",
+  "categories": ["presentation", "education", "productivity"],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "创建新PPT",
+      "short_name": "新建",
+      "description": "快速创建新的PPT项目",
+      "url": "/create?source=shortcut",
+      "icons": [
+        {
+          "src": "/icons/shortcut-new.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "图片优化",
+      "short_name": "优化",
+      "description": "分析和优化项目图片",
+      "url": "/optimize?source=shortcut",
+      "icons": [
+        {
+          "src": "/icons/shortcut-optimize.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "PPT展示站桌面版截图"
+    },
+    {
+      "src": "/screenshots/mobile.png",
+      "sizes": "360x640",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "PPT展示站移动版截图"
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+ppt",
+      "url": "/open?url=%s"
+    }
+  ]
+}

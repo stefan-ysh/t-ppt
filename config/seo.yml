@@ -1,0 +1,164 @@
+# SEO优化配置
+# T-PPT项目的搜索引擎优化设置
+
+# 网站基本信息
+site:
+  name: "T-PPT 演示文稿展示平台"
+  description: "专业的PPT演示文稿制作和展示平台，基于Slidev技术，提供丰富的模板和主题"
+  url: "https://powerpoint.tiantian.group"
+  author: "T-PPT团队"
+  keywords:
+    - "PPT"
+    - "演示文稿"
+    - "Slidev"
+    - "展示"
+    - "演讲"
+    - "幻灯片"
+    - "模板"
+    - "主题"
+  language: "zh-CN"
+  type: "website"
+
+# 社交媒体配置
+social:
+  twitter: "@tppt_official"
+  facebook: "tppt.official" 
+  linkedin: "company/t-ppt"
+  github: "your-username/t-ppt"
+  weibo: "tppt_官方"
+
+# 分析工具配置
+analytics:
+  google: "G-XXXXXXXXXX"  # Google Analytics 测量ID
+  baidu: "xxxxxxxxxxxxxxxx"  # 百度统计代码
+  cnzz: "xxxxxxxx"  # 友盟统计
+  
+# 搜索引擎验证
+verification:
+  google: "google-site-verification=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  baidu: "baidu-site-verification=xxxxxxxxxxxxxxxx"  
+  bing: "msvalidate.01=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  yandex: "yandex-verification=xxxxxxxxxxxxxxxx"
+  
+# Open Graph 图片配置
+og_image:
+  default: "/assets/images/og-default.jpg"
+  width: 1200
+  height: 630
+  
+# 结构化数据配置
+structured_data:
+  organization:
+    telephone: "+86-XXX-XXXX-XXXX"
+    email: "contact@t-ppt.example.com"
+    address:
+      street: "示例街道123号"
+      city: "示例城市"
+      region: "示例省份"
+      postal_code: "100000"
+      country: "CN"
+      
+# 内容优化配置
+content:
+  # 标题长度限制
+  title_max_length: 60
+  title_min_length: 30
+  
+  # 描述长度限制  
+  description_max_length: 160
+  description_min_length: 120
+  
+  # 关键词设置
+  keywords_max_count: 10
+  keywords_min_count: 3
+  
+  # H1标签规则
+  h1_required: true
+  h1_unique: true
+  
+# 技术SEO配置
+technical:
+  # 网站地图配置
+  sitemap:
+    enabled: true
+    include_images: true
+    include_videos: false
+    changefreq_default: "monthly"
+    priority_default: 0.5
+    
+  # robots.txt配置
+  robots:
+    enabled: true
+    crawl_delay: 1
+    
+  # 压缩设置
+  compression:
+    gzip: true
+    brotli: true
+    
+  # 缓存配置
+  cache:
+    static_files: "1y"
+    html_files: "1h"
+    api_responses: "5m"
+    
+# 性能优化配置
+performance:
+  # 图片优化
+  images:
+    formats: ["webp", "avif", "jpg", "png"]
+    sizes: [480, 768, 1024, 1200, 1920]
+    quality: 85
+    lazy_loading: true
+    
+  # 字体优化
+  fonts:
+    preload: true
+    display: "swap"
+    subset: true
+    
+  # JavaScript优化
+  javascript:
+    minify: true
+    tree_shake: true
+    code_split: true
+    
+  # CSS优化
+  css:
+    minify: true
+    critical_inline: true
+    unused_removal: true
+    
+# 国际化SEO配置
+i18n:
+  default_locale: "zh-CN"
+  supported_locales:
+    - "zh-CN"
+    - "en-US"
+    - "ja-JP"
+  hreflang: true
+  
+# 监控和报告
+monitoring:
+  # Core Web Vitals监控
+  core_web_vitals: true
+  
+  # 索引监控
+  search_console: true
+  
+  # 错误监控
+  error_tracking: true
+  
+  # 性能监控
+  performance_budget:
+    fcp: 1800  # 首次内容绘制 (ms)
+    lcp: 2500  # 最大内容绘制 (ms)  
+    cls: 0.1   # 累积布局偏移
+    fid: 100   # 首次输入延迟 (ms)
+    
+# 本地化配置
+localization:
+  timezone: "Asia/Shanghai"
+  currency: "CNY"
+  date_format: "YYYY-MM-DD"
+  number_format: "zh-Hans-CN"
