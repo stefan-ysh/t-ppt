@@ -21,7 +21,6 @@ mdc: true
 ---
 
 <h3 absolute top="30">新能源光织物的开发及其在主动光安全系统中的应用</h3>
-<light />
 <div w-full h-auto flex="~ flex row items-center justify-center" text-sm absolute top="50">
 <div>
   <span class="px-2 py-1 rounded">
