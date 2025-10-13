@@ -16,6 +16,8 @@ drawings:
   persist: false
 # 幻灯片切换效果
 transition: slide-left
+addons:
+    - slidev-addon-qrcode
 # 使用 MDC 语法启用
 mdc: true
 ---
@@ -1564,3 +1566,13 @@ title: 长余辉自发光材料
         谢谢！
   </span>
 </div>
+<QRCode
+  absolute
+  right-0
+  :width="250"
+  :height="250"
+  type="svg"
+  data="https://u.wechat.com/ENlWXIR-iMEhMaamDD7FI0Q?s=4"
+  :margin="30"
+  :dotsOptions="{ type: 'classy', color: '#0bc4d5ff', shape: 'circle' }"
+/>
