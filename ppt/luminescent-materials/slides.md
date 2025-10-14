@@ -178,7 +178,7 @@ layout: cover
 ---
 
 <div flex="~ col justify-center items-center" h="full" p="y-10" relative>
-<SlidevVideo autoplay loop muted absolute w="full" h="full" top="0" left="0" bottom="0" right="0">
+<SlidevVideo autoplay loop muted absolute w="full" h="full" top="0" left="0" bottom="0" right="0" webkit-playsinline>
   <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
   <source src="/cover.mp4" type="video/mp4" />
   <p>

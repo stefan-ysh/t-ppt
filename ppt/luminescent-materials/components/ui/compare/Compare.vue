@@ -1,7 +1,7 @@
 <template>
   <div
     ref="sliderRef"
-    :class="cn('w-[400px] h-[400px] overflow-hidden', props.class)"
+    :class="cn('w-[400px] h-[400px] ', props.class)"
     :style="{
       position: 'relative',
       cursor: props.slideMode === 'drag' ? 'grab' : 'col-resize',
@@ -54,7 +54,7 @@
 
     <!-- First Content -->
     <div
-      class="relative z-20 size-full overflow-hidden"
+      class="relative z-20 size-full"
       :style="{ pointerEvents: isInteracting ? 'none' : 'auto' }"
     >
       <Transition>
@@ -62,7 +62,7 @@
           v-show="true"
           :class="
             cn(
-              'absolute inset-0 z-20 rounded-2xl flex-shrink-0 w-full h-full select-none overflow-hidden',
+              'absolute inset-0 z-20 rounded-2xl flex-shrink-0 w-full h-full select-none ',
               props.firstContentClass
             )
           "
