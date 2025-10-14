@@ -4,7 +4,7 @@
  */
 
 // 扩展 Jest 匹配器
-import '@testing-library/jest-dom'
+require('@testing-library/jest-dom')
 
 // 全局测试工具
 global.testUtils = {
@@ -119,7 +119,9 @@ afterEach(() => {
   // 清理 DOM
   document.body.innerHTML = ''
 
-  // 清理定时器
-  jest.runOnlyPendingTimers()
-  jest.useRealTimers()
+  // 清理定时器（如果使用了假定时器）
+  if (jest.isMockFunction(setTimeout)) {
+    jest.runOnlyPendingTimers()
+    jest.useRealTimers()
+  }
 })

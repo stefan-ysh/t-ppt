@@ -6,6 +6,11 @@ node_modules/
 # 构建输出
 dist/
 
+# 生成的报告
+coverage/
+*.html
+*.json
+
 # 运行时数据
 *.pid
 *.seed
