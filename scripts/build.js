@@ -11,14 +11,14 @@ const __dirname = path.dirname(__filename)
 console.log('🚀 开始构建多PPT展示站...')
 
 // 创建输出目录
-const distDir = path.join(__dirname, 'dist')
+const distDir = path.join(__dirname, '..', 'dist')
 if (!fs.existsSync(distDir)) {
   fs.mkdirSync(distDir, { recursive: true })
 }
 
 // 复制首页
 console.log('📄 复制首页文件...')
-const indexPath = path.join(__dirname, 'index.html')
+const indexPath = path.join(__dirname, '..', 'index.html')
 const distIndexPath = path.join(distDir, 'index.html')
 if (fs.existsSync(indexPath)) {
   fs.copyFileSync(indexPath, distIndexPath)
@@ -30,7 +30,7 @@ if (fs.existsSync(indexPath)) {
 // 查找并构建所有PPT
 console.log('🎨 构建所有PPT演示文稿...')
 
-const pptDir = path.join(__dirname, 'ppt')
+const pptDir = path.join(__dirname, '..', 'ppt')
 if (!fs.existsSync(pptDir)) {
   console.log('⚠️  没有找到 ppt 目录')
   process.exit(0)

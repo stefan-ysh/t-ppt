@@ -1,15 +1,15 @@
 ---
 # PPT配置
 theme: default
-title: 新演示文稿
+title: 项目展示模板
 info: |
-  ## 新演示文稿
-  演示文稿描述
+  ## 项目展示模板
+  通用项目展示PPT模板
 author: Your Name
 date: 2025-10
 # 布局配置
 layout: cover
-class: "text-center"
+class: 'text-center'
 # 高亮器
 highlighter: shiki
 # 启用绘图
@@ -48,7 +48,7 @@ layout: default
 # 第一部分
 
 - 📝 要点一
-- 🎯 要点二  
+- 🎯 要点二
 - 🚀 要点三
 
 ---

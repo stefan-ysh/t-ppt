@@ -1,14 +1,14 @@
 ---
 # 试试 write-good 和 grammarly
 theme: default
-image: "./bj.jpg"
+image: './bj.jpg'
 layout: image
 # 一些关于幻灯片的信息，比如标题、作者等
-title: 长余辉自发光材料
+title: 发光材料技术研究
 info: |
   ## 演示文稿
 # 应用 unocss 类到当前幻灯片
-class: "text-center flex flex-col justify-center items-center"
+class: 'text-center flex flex-col justify-center items-center'
 # https://sli.dev/custom/highlighters.html
 highlighter: shiki
 # https://sli.dev/guide/drawing
@@ -17,7 +17,7 @@ drawings:
 # 幻灯片切换效果
 transition: slide-left
 addons:
-    - slidev-addon-qrcode
+  - slidev-addon-qrcode
 # 使用 MDC 语法启用
 mdc: true
 ---
@@ -46,18 +46,17 @@ mdc: true
 这里是注释内容，不会在幻灯片中显示
 -->
 
-
 ---
 layout: default
 transition: slide-left
-
 ---
-<!-- 
+
+<!--
 ## transition: fade-out -->
 <!-- # 什么是 Slidev？ -->
 <!-- 背景 -->
 
-<!-- 
+<!--
 Slidev 是一个为开发者量身定制的演示文稿工具
 
 - 📝 **基于文本** - 专注于内容，使用 Markdown
@@ -92,7 +91,6 @@ mdc: true
 
 <Three />
 
-
 ---
 disabled: true
 ---
@@ -126,12 +124,11 @@ disabled: true
   </ul>
 </div>
 
-
 ---
 disabled: true
 ---
 
-  <div flex="~ col" justify="center" items="center" p="y-10">
+<div flex="~ col" justify="center" items="center" p="y-10">
     <img src="/constract.png" w="5/6" />
     <span class="text-xs opacity-75 mt-5">
       与 江苏华富储能新技术股份有限公司、中汽研汽车检验中心（常州）有限公司、扬农化工集团、江苏富威能源有限公司、宁德时代新能源科技股份有限公司等企业合作，主持省重点研发项目1项（300万元） ，校企合作横向多项（500万元以上）
@@ -157,6 +154,7 @@ disabled: true
  <div w="1/2" absolute right-0 top-0 bottom-0 style="background: linear-gradient(180deg, #53658f99 0%,  #ffffff00 100%)" z-11 class="bg-opacity-200"></div>
 
 </div>
+
 ---
 
 <div absolute inset-0 w-full flex="~ row">
@@ -167,7 +165,6 @@ disabled: true
   <img src="/4-2.png" w="160" absolute left="70" top="34" z="12"/>
  <img src="/4-1.jpg" w="1/2" absolute right-0 top-0/>
 </div>
-
 
 ---
 layout: cover
@@ -186,13 +183,13 @@ layout: cover
 
 <div z-999 text="center" color="white" font="bold" >
 
-  ## 项目1
-  ### 大面积绿光光织物的开发和应用
+## 项目1
+
+### 大面积绿光光织物的开发和应用
+
 </div>
 
-
 </div>
-
 
 ---
 clicks: 2
@@ -218,7 +215,6 @@ clicks: 2
 
 <SevenTwo />
 </div>
-
 
 ---
 
@@ -276,10 +272,8 @@ clicks: 2
 <span absolute color="white" text="0.8rem" top="93" left="18">CsPbBr3@HPβCD/PFOS</span>
 <div absolute bottom="7" right="30">环糊精在改善CsPbBr3晶体质量中的作用</div>
 
-
-
-
-<!-- <div grid="~ cols-2 gap-2" m="t-2">
+<!--
+<div grid="~ cols-2 gap-2" m="t-2">
 
 <img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-default/01.png?raw=true" alt="">
 
@@ -289,8 +283,8 @@ clicks: 2
 
 <img border="rounded" src="https://github.com/slidevjs/themes/blob/main/screenshots/theme-seriph/01.png?raw=true" alt="">
 
-</div> -->
-
+</div>
+-->
 
 ---
 
@@ -548,7 +542,6 @@ clicks: 8
   >
 </div>
 
-
 ---
 layout: cover
 ---
@@ -566,8 +559,10 @@ layout: cover
 <div z-999 text="center" color="white" font="bold" >
 <!-- 不要缩进是为了显示 markdown -->
 
-  ## 项目2
-  ### 主动发光膜的开发和节能应用
+## 项目2
+
+### 主动发光膜的开发和节能应用
+
 </div>
 </div>
 
@@ -652,7 +647,6 @@ clicks: 1
 ---
 clicks: 1
 ---
-
 
 <h3 text="center" mb="5">
   长余辉光织物的光学表征
@@ -848,7 +842,6 @@ clicks: 1
 }
 </style>
 
-
 ---
 
 <h3 text="center">
@@ -917,8 +910,6 @@ top="0"
 </SlidevVideo>
 </div>
 
-
-
 ---
 
 <img
@@ -947,6 +938,7 @@ z="10"
 ---
 clicks: 3
 ---
+
 <h3 text="center">
   柔性绿光透明膜
 </h3>
@@ -1006,11 +998,11 @@ z='1'
   bg="#110055"
 />
 
-
 ---
 clicks: 3
 layout: two-cols
 ---
+
 <template v-slot:default>
 <div
   absolute
@@ -1116,10 +1108,9 @@ v-motion
 </h3>
 </template>
 
-
 ---
 clicks: 3
-class: "p-0"
+class: 'p-0'
 ---
 
 <img
@@ -1133,6 +1124,7 @@ v-motion
 transition="ease-out"
 duration="1300"
 />
+
 <div
 absolute
 inset="0"
@@ -1321,11 +1313,10 @@ text-white
 </span>
 </div>
 
-
-
 ---
 clicks: 2
 ---
+
 <img
 src="/27.png"
 absolute
@@ -1549,14 +1540,14 @@ flex="~ items-center justify-between"
   }
 </style>
 
-
 ---
 theme: default
-image: "./last-bg.jpg"
+image: './last-bg.jpg'
 layout: image
 title: 长余辉自发光材料
 ---
-  <div class="pt-12" text-center>
+
+<div class="pt-12" text-center>
   <span class="px-2 py-1 rounded">
         ​从实验室纳米发光颗粒到商用自发光膜，重新定义发光材料的边界。
   </span>
