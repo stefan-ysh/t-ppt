@@ -29,8 +29,10 @@ fonts:
   mono: Fira Code
 ---
 
-<h3 absolute top="30">新能源光织物的开发及其在主动光安全系统中的应用</h3>
-<div w-full h-auto flex="~ flex row items-center justify-center" text-sm absolute top="50">
+<span class="pointer-events-none whitespace-pre-wrap bg-gradient-to-b  bg-clip-text text-center text-4xl font-semibold leading-none text-transparent from-white to-slate-900/10 absolute top-30">
+  新能源光织物的开发及其在主动光安全系统中的应用
+</span>
+<div w-full h-auto flex="~ flex row items-center justify-right" text-sm absolute top="60" right="20">
 <div>
   <span class="px-2 py-1 rounded">
   <mdi-school flex-shrink="0" class="text-blue-400 mx-2" />
@@ -174,28 +176,22 @@ disabled: true
 </div>
 
 ---
-layout: cover
----
 
 <div flex="~ col justify-center items-center" h="full" p="y-10" relative>
-<SlidevVideo autoplay loop muted playsinline absolute w="full" h="full" top="0" left="0" bottom="0" right="0">
-  <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
-  <source src="/cover.mp4" type="video/mp4" />
-  <p>
-    你的浏览器不支持播放该视频，请点击
-    <a href="/cover.mp4">此处</a>
-    下载。
-  </p>
-</SlidevVideo>
-
-<div z-999 text="center" color="white" font="bold" >
-
-## 项目1
-
-### 大面积绿光光织物的开发和应用
-
-</div>
-
+  <span
+    class="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-5xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10"
+  >
+    项目1 ：大面积绿光光织物的开发和应用
+  </span>
+  <ParticlesBg
+      :key="$slidev.nav.currentPage"
+      class="absolute inset-0"
+      :quantity="100"
+      :ease="100"
+      color="#FFF"
+      :staticity="10"
+      refresh
+    />
 </div>
 
 ---
@@ -550,27 +546,21 @@ clicks: 8
 </div>
 
 ---
-layout: cover
----
 
 <div flex="~ col justify-center items-center" h="full" p="y-10" relative>
-  <SlidevVideo autoplay loop muted playsinline absolute w="full" h="full" top="0" left="0" bottom="0" right="0">
-    <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
-    <source src="/cover.mp4" type="video/mp4" />
-    <p>
-      你的浏览器不支持播放该视频，请点击
-      <a href="/cover.mp4">此处</a>
-      下载。
-    </p>
-  </SlidevVideo>
-<div z-999 text="center" color="white" font="bold" >
-<!-- 不要缩进是为了显示 markdown -->
-
-## 项目2
-
-### 主动发光膜的开发和节能应用
-
-</div>
+  <span
+    class="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-5xl font-semibold leading-none text-transparent dark:from-white dark:to-slate-900/10"
+  >
+    项目2：主动发光膜的开发和节能应用
+  </span>
+  <ParticlesBg
+    :key="$slidev.nav.currentPage"
+    class="absolute inset-0"
+    :quantity="100"
+    :ease="100"
+    :staticity="10"
+    refresh
+  />
 </div>
 
 ---
