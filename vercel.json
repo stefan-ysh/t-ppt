@@ -5,7 +5,13 @@
   "installCommand": "npm install",
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
-    { "source": "/ppt/([^/]+)/(.*)", "destination": "/ppt/$1/$2" },
+    { "source": "/ppt/([^/]+)/([0-9]+)", "destination": "/ppt/$1/index.html" },
+    { "source": "/ppt/([^/]+)/presenter", "destination": "/ppt/$1/index.html" },
+    { "source": "/ppt/([^/]+)/presenter/([0-9]+)", "destination": "/ppt/$1/index.html" },
+    { "source": "/ppt/([^/]+)/notes", "destination": "/ppt/$1/index.html" },
+    { "source": "/ppt/([^/]+)/notes/([0-9]+)", "destination": "/ppt/$1/index.html" },
+    { "source": "/ppt/([^/]+)/overview", "destination": "/ppt/$1/index.html" },
+    { "source": "/ppt/([^/]+)/(.*)", "destination": "/ppt/$1/index.html" },
     { "source": "/ppt/([^/]+)", "destination": "/ppt/$1/index.html" }
   ]
 }
