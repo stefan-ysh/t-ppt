@@ -3,6 +3,7 @@
 ## 问题解决
 
 ✅ **已修复构建错误**：
+
 - 创建了Node.js版本的构建脚本 (`build.js`)
 - 支持ES模块语法
 - 兼容Vercel构建环境
@@ -10,9 +11,10 @@
 ## 📋 当前配置
 
 **vercel.json**：
+
 ```json
 {
-  "buildCommand": "node build.js",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": null,
   "installCommand": "npm install",
@@ -25,10 +27,12 @@
 ```
 
 **package.json scripts**：
+
 ```json
 {
-  "build": "node build.js",
-  "build:shell": "bash build-all.sh"
+  "build": "node scripts/build-unified.js",
+  "build:legacy": "node scripts/build.js",
+  "build:enhanced": "./scripts/build-enhanced.sh"
 }
 ```
 
@@ -59,19 +63,22 @@ vercel --prod
 
 ## 🔧 构建脚本对比
 
-| 脚本类型 | 命令 | 环境兼容性 | 推荐使用 |
-|---------|------|------------|----------|
-| **Node.js** | `node build.js` | ✅ Vercel + 本地 | **生产环境** |
-| **Shell** | `bash build-all.sh` | ⚠️ 仅本地 | 本地开发 |
+| 脚本类型     | 命令                     | 环境兼容性       | 推荐使用     |
+| ------------ | ------------------------ | ---------------- | ------------ |
+| **统一构建** | `npm run build`          | ✅ Vercel + 本地 | **生产环境** |
+| **传统构建** | `npm run build:legacy`   | ✅ Vercel + 本地 | 兼容性       |
+| **并行构建** | `npm run build:enhanced` | ⚠️ 仅本地        | 本地开发     |
 
 ## 🎯 测试结果
 
 ✅ **本地测试通过**：
+
 - Node.js构建脚本工作正常
 - 成功构建所有PPT
 - 输出到dist目录
 
 ✅ **Vercel兼容**：
+
 - 使用Node.js标准库
 - 支持ES模块
 - 无需依赖外部shell命令
