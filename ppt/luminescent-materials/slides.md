@@ -20,6 +20,13 @@ addons:
   - slidev-addon-qrcode
 # 使用 MDC 语法启用
 mdc: true
+fonts:
+  # 基础字体
+  sans: Robot
+  # 与 UnoCSS 的 `font-serif` css 类一同使用
+  serif: Robot Slab
+  # 用于代码块、内联代码等
+  mono: Fira Code
 ---
 
 <h3 absolute top="30">新能源光织物的开发及其在主动光安全系统中的应用</h3>
@@ -894,6 +901,20 @@ top="0"
 <span absolute right="25" bottom="0" text-xs text-red>
 耐揉搓，可压电发光
 </span>
+</div>
+
+---
+
+<div absolute inset="0" bg-black class="flex items-center justify-center">
+<Compare
+  first-image="before.png"
+  second-image="after.jpg"
+  :autoplay="true"
+  :autoplay-duration="9000"
+  first-content-class="object-cover object-left-top rounded-xl overflow-hidden p-0 sm:p-20"
+  second-content-class="object-cover object-left-top rounded-xl overflow-hidden p-0 sm:p-10"
+  class="h-[400px] w-[650px] sm:h-[500px] sm:w-[650px] mx-auto"
+/>
 </div>
 
 ---
