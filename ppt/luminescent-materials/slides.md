@@ -178,7 +178,7 @@ layout: cover
 ---
 
 <div flex="~ col justify-center items-center" h="full" p="y-10" relative>
-<SlidevVideo autoplay loop muted absolute w="full" h="full" top="0" left="0" bottom="0" right="0" webkit-playsinline>
+<SlidevVideo autoplay loop muted playsinline absolute w="full" h="full" top="0" left="0" bottom="0" right="0">
   <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
   <source src="/cover.mp4" type="video/mp4" />
   <p>
@@ -379,7 +379,7 @@ clicks: 8
 ---
 
 <div flex="~" absolute h="full" top="0" left="0" bottom="0" right="0">
-  <SlidevVideo autoplay loop muted>
+  <SlidevVideo autoplay loop muted playsinline>
     <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
     <source src="/发光材料水下可见性演示.mov" type="video/mp4" />
     <p>
@@ -554,7 +554,7 @@ layout: cover
 ---
 
 <div flex="~ col justify-center items-center" h="full" p="y-10" relative>
-  <SlidevVideo autoplay loop muted absolute w="full" h="full" top="0" left="0" bottom="0" right="0">
+  <SlidevVideo autoplay loop muted playsinline absolute w="full" h="full" top="0" left="0" bottom="0" right="0">
     <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
     <source src="/cover.mp4" type="video/mp4" />
     <p>
@@ -588,7 +588,7 @@ layout: two-cols
 
 </template>
 <template v-slot:right>
-  <SlidevVideo autoplay loop muted absolute w="108" m="l-5">
+  <SlidevVideo autoplay loop muted playsinline absolute w="108" m="l-5">
     <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
     <source src="/13r.mp4" type="video/mp4" />
     <p>
@@ -749,7 +749,7 @@ clicks: 1
     duration="500"
     w="full"
   >
-  <SlidevVideo autoplay loop muted absolute w="79" right="12" top="6">
+  <SlidevVideo autoplay loop muted playsinline absolute w="79" right="12" top="6">
     <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
     <source src="/16-2.mp4" type="video/mp4" />
     <p>
@@ -877,7 +877,7 @@ z="10"
 right="0"
 top="0"
 />
-<SlidevVideo autoplay loop muted absolute w="full" top="0">
+<SlidevVideo autoplay loop muted playsinline absolute w="full" top="0">
   <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
   <source src="/19-1.mp4" type="video/mp4" />
   <p>
@@ -886,7 +886,7 @@ top="0"
     下载。
   </p>
 </SlidevVideo>
-<SlidevVideo autoplay loop muted absolute w="50" bottom="10" right="10">
+<SlidevVideo autoplay loop muted playsinline absolute w="50" bottom="10" right="10">
   <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
   <source src="/19-2.mp4" type="video/mp4" />
   <p>
@@ -920,7 +920,7 @@ top="0"
 ---
 
 <div absolute inset="0" bg="black" class="flex items-center justify-center">
-<SlidevVideo loop controls absolute h="full">
+<SlidevVideo loop controls playsinline absolute h="full">
   <!-- 可以加入 HTML video 元素中能包含的任何内容。 -->
   <source src="/20.mp4" type="video/mp4" />
   <p>
