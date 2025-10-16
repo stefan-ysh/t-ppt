@@ -141,6 +141,21 @@ npm run clean
 3. Vercel会自动执行 `npm run build`
 4. 访问你的PPT展示站
 
+### 浏览量统计（Vercel KV）
+
+项目内置了一个 `api/views` 边缘函数并使用 [Vercel KV](https://vercel.com/docs/storage/vercel-kv) 存储浏览量。部署前需要：
+
+1. 在 Vercel Dashboard 中为该项目启用 **Vercel KV**。
+2. 在项目环境变量里填写：
+   - `KV_URL`
+   - `KV_REST_API_URL`
+   - `KV_REST_API_TOKEN`
+   - `KV_REST_API_READ_ONLY_TOKEN`
+
+   （本地调试可参考 `.env.example`）
+
+3. 部署后访问 `/api/views?ppt=<ppt-id>` 可以查看当前计数；首页会自动请求并更新每个 PPT 的浏览量。
+
 ### Vercel配置
 
 项目已包含 `vercel.json` 配置文件，支持：

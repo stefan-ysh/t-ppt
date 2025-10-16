@@ -40,6 +40,7 @@
     "pwa:validate": "node -e \"console.log('Checking PWA features...'); ['sw.js', 'manifest.json'].forEach(f => console.log(f + ':', require('fs').existsSync(f) ? '✅' : '❌'))\""
   },
   "dependencies": {
+    "@vercel/kv": "^1.0.1",
     "@slidev/cli": "^52.2.4",
     "@slidev/theme-default": "^0.25.0",
     "@vueuse/core": "^13.9.0",

@@ -27,6 +27,45 @@ fonts:
   serif: Robot Slab
   # 用于代码块、内联代码等
   mono: Fira Code
+setup: |
+  import { onMounted } from 'vue'
+
+  const extractPptId = () => {
+    if (typeof window === 'undefined') return ''
+    const segments = window.location.pathname.split('/').filter(Boolean)
+    if (segments.length < 2) return ''
+    return segments[1]
+  }
+
+  const recordPptView = () => {
+    const pptId = extractPptId()
+    if (!pptId) return
+    const url = `/api/views?ppt=${encodeURIComponent(pptId)}`
+    const payload = JSON.stringify({ source: 'ppt' })
+
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }))
+        return
+      }
+
+      fetch(url, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: payload,
+        keepalive: true,
+        cache: 'no-store',
+      }).catch((error) => {
+        console.warn('记录 PPT 浏览量失败', error)
+      })
+    } catch (error) {
+      console.warn('记录 PPT 浏览量失败', error)
+    }
+  }
+
+  onMounted(() => {
+    recordPptView()
+  })
 ---
 
 <span class="pointer-events-none whitespace-pre-wrap bg-gradient-to-b  bg-clip-text text-center text-4xl font-semibold leading-none text-transparent from-white to-slate-900/10 absolute top-30">

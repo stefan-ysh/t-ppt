@@ -108,6 +108,8 @@
             align-items: center;
             font-size: 0.9rem;
             color: #999;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         
         .ppt-date {
@@ -130,6 +132,16 @@
         .status-draft {
             background: #fff3cd;
             color: #856404;
+        }
+
+        .ppt-views {
+            background: rgba(0,0,0,0.04);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .ppt-actions {
@@ -293,6 +305,72 @@
             }
         }
 
+    // 基于 localStorage 的简单浏览量统计
+        const viewCountCache = new Map();
+
+        function updateViewBadge(pptId, count) {
+            const badge = document.querySelector(`.ppt-views[data-ppt-id="${pptId}"]`);
+            if (badge) {
+                badge.textContent = `👁️ ${count}`;
+            }
+        }
+
+        async function fetchViewCount(pptId) {
+            if (viewCountCache.has(pptId)) {
+                return viewCountCache.get(pptId);
+            }
+
+            try {
+                const response = await fetch(`/api/views?ppt=${encodeURIComponent(pptId)}`, {
+                    method: 'GET',
+                    headers: { 'accept': 'application/json' },
+                    cache: 'no-store'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`获取浏览量失败: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const count = typeof data.count === 'number' ? data.count : 0;
+                viewCountCache.set(pptId, count);
+                updateViewBadge(pptId, count);
+                return count;
+            } catch (error) {
+                console.warn(`无法获取 ${pptId} 的浏览量`, error);
+                return 0;
+            }
+        }
+
+        function optimisticIncrement(pptId) {
+            const current = viewCountCache.get(pptId) || 0;
+            const next = current + 1;
+            viewCountCache.set(pptId, next);
+            updateViewBadge(pptId, next);
+            return next;
+        }
+
+        function recordView(pptId) {
+            optimisticIncrement(pptId);
+            const url = `/api/views?ppt=${encodeURIComponent(pptId)}`;
+            const payload = JSON.stringify({ event: 'home-view' });
+
+            if (navigator.sendBeacon) {
+                const blob = new Blob([payload], { type: 'application/json' });
+                navigator.sendBeacon(url, blob);
+                return;
+            }
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: payload,
+                keepalive: true
+            }).catch(error => {
+                console.warn(`同步 ${pptId} 浏览量失败`, error);
+            });
+        }
+
         async function copyPPTLink(button) {
             // 复制演示文稿链接到剪贴板
             const pptId = button.getAttribute('data-ppt-id');
@@ -355,10 +433,10 @@
             
             presentations.forEach(ppt => {
                 const viewUrl = `./ppt/${ppt.id}/`;
-                const analysisUrl = ppt.analysisUrl || `./ppt/${ppt.id}/analysis/`;
                 const card = document.createElement('div');
                 card.className = 'ppt-card';
                 card.setAttribute('tabindex', '0');
+                const viewCount = viewCountCache.get(ppt.id) ?? 0;
 
                 card.innerHTML = `
                     <div class="ppt-content">
@@ -369,13 +447,13 @@
                             <span class="ppt-status status-${ppt.status}">
                                 ${ppt.status === 'published' ? '已发布' : '草稿'}
                             </span>
+                            <span class="ppt-views" data-ppt-id="${ppt.id}">👁️ ${viewCount}</span>
                         </div>
                         ${ppt.author ? `<div style="margin-top: 10px; font-size: 0.9rem; color: #666;">👤 ${ppt.author}</div>` : ''}
                     </div>
                     <div class="ppt-actions">
                         <a class="ppt-action ppt-view" href="${viewUrl}">查看</a>
-                        <!-- <a class="ppt-action ppt-analysis" href="${analysisUrl}" target="_blank" rel="noopener">分析</a> -->
-                        <button class="ppt-action ppt-share" type="button" data-ppt-id="${ppt.id}" data-label="复制链接" onclick="event.stopPropagation(); copyPPTLink(this)">复制链接</button>
+                        <button class="ppt-action ppt-share" type="button" data-ppt-id="${ppt.id}" data-label="复制链接">复制链接</button>
                     </div>
                 `;
 
@@ -383,17 +461,37 @@
                     if (event.target.closest('.ppt-actions')) {
                         return;
                     }
+                    recordView(ppt.id);
                     window.location.href = viewUrl;
                 });
 
                 card.addEventListener('keydown', event => {
                     if (event.key === 'Enter' || event.key === ' ') {
                         event.preventDefault();
+                        recordView(ppt.id);
                         window.location.href = viewUrl;
                     }
                 });
 
+                const viewLink = card.querySelector('.ppt-view');
+                if (viewLink) {
+                    viewLink.addEventListener('click', () => recordView(ppt.id));
+                }
+
+                const shareButton = card.querySelector('.ppt-share');
+                if (shareButton) {
+                    shareButton.addEventListener('click', event => {
+                        event.stopPropagation();
+                        copyPPTLink(shareButton);
+                    });
+                }
+
                 grid.appendChild(card);
+
+                // 异步刷新浏览量
+                fetchViewCount(ppt.id).catch(() => {
+                    updateViewBadge(ppt.id, viewCountCache.get(ppt.id) ?? 0);
+                });
             });
         }
 
