@@ -4,7 +4,7 @@ theme: default
 image: './bj.jpg'
 layout: image
 # 一些关于幻灯片的信息，比如标题、作者等
-title: 发光材料技术研究
+title: 新能源光织物的开发及其在主动光安全系统中的应用
 info: |
   ## 演示文稿
 # 应用 unocss 类到当前幻灯片
