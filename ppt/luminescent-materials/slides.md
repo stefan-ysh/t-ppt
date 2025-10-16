@@ -37,29 +37,33 @@ setup: |
     return segments[1]
   }
 
-  const recordPptView = () => {
+  const recordPptView = async () => {
     const pptId = extractPptId()
     if (!pptId) return
     const url = `/api/views?ppt=${encodeURIComponent(pptId)}`
-    const payload = JSON.stringify({ source: 'ppt' })
+    const payload = JSON.stringify({ event: 'ppt-view' })
 
     try {
-      if (navigator.sendBeacon) {
-        navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }))
-        return
-      }
-
-      fetch(url, {
+      const response = await fetch(url, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         body: payload,
         keepalive: true,
         cache: 'no-store',
-      }).catch((error) => {
-        console.warn('记录 PPT 浏览量失败', error)
       })
+
+      if (!response.ok) {
+        throw new Error(`记录浏览量失败: ${response.status}`)
+      }
     } catch (error) {
-      console.warn('记录 PPT 浏览量失败', error)
+      console.warn('记录 PPT 浏览量失败，尝试备用方案', error)
+      if (navigator.sendBeacon) {
+        try {
+          navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }))
+        } catch (err) {
+          console.warn('sendBeacon 也失败', err)
+        }
+      }
     }
   }
 
