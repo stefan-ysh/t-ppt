@@ -72,13 +72,20 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
-            text-decoration: none;
             color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
         }
-        
+
         .ppt-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .ppt-content {
+            flex: 1 1 auto;
         }
         
         .ppt-title {
@@ -123,6 +130,65 @@
         .status-draft {
             background: #fff3cd;
             color: #856404;
+        }
+
+        .ppt-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .ppt-action {
+            flex: 0 0 auto;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: none;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ppt-action:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(118,75,162,0.25);
+        }
+
+        .ppt-view {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .ppt-analysis {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .ppt-share {
+            background: rgba(102,126,234,0.12);
+            color: #4c51bf;
+        }
+
+        .ppt-share-success {
+            background: rgba(16,185,129,0.15);
+            color: #0f766e;
+        }
+
+        .ppt-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        .ppt-action:disabled {
+            cursor: default;
+            opacity: 0.85;
+            box-shadow: none;
+            transform: none;
         }
 
         @media (max-width: 768px) {
@@ -170,7 +236,8 @@
                         date: frontmatter.date || '2024-10',
                         status: 'published',
                         author: frontmatter.author || '',
-                        theme: frontmatter.theme || 'default'
+                        theme: frontmatter.theme || 'default',
+                        analysisUrl: frontmatter.analysis || frontmatter.analysisUrl || ''
                     };
                 } catch (error) {
                     // 如果无法读取slides.md，返回默认信息
@@ -181,7 +248,8 @@
                         date: '2024-10',
                         status: 'published',
                         author: '',
-                        theme: 'default'
+                        theme: 'default',
+                        analysisUrl: ''
                     };
                 }
             }
@@ -225,6 +293,52 @@
             }
         }
 
+        async function copyPPTLink(button) {
+            // 复制演示文稿链接到剪贴板
+            const pptId = button.getAttribute('data-ppt-id');
+            const link = `${window.location.origin}/ppt/${pptId}/`;
+            const originalLabel = button.getAttribute('data-label') || button.textContent;
+
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(link);
+                } else {
+                    // 旧浏览器降级方案
+                    const textarea = document.createElement('textarea');
+                    textarea.value = link;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.focus();
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                }
+
+                button.textContent = '复制成功';
+                button.classList.add('ppt-share-success');
+                button.disabled = true;
+
+                setTimeout(() => {
+                    button.textContent = originalLabel;
+                    button.classList.remove('ppt-share-success');
+                    button.disabled = false;
+                }, 3000);
+            } catch (error) {
+                console.error('复制失败:', error);
+                const fallback = prompt('复制以下链接分享PPT:', link);
+                if (fallback !== null) {
+                    button.textContent = '复制成功';
+                    button.classList.add('ppt-share-success');
+                    button.disabled = true;
+                    setTimeout(() => {
+                        button.textContent = originalLabel;
+                        button.classList.remove('ppt-share-success');
+                        button.disabled = false;
+                    }, 3000);
+                }
+            }
+        }
         function renderPresentations(presentations) {
             const grid = document.getElementById('pptGrid');
             grid.innerHTML = ''; // 清空现有内容
@@ -240,22 +354,45 @@
             }
             
             presentations.forEach(ppt => {
-                const card = document.createElement('a');
+                const viewUrl = `./ppt/${ppt.id}/`;
+                const analysisUrl = ppt.analysisUrl || `./ppt/${ppt.id}/analysis/`;
+                const card = document.createElement('div');
                 card.className = 'ppt-card';
-                card.href = `./ppt/${ppt.id}/`;
-                
+                card.setAttribute('tabindex', '0');
+
                 card.innerHTML = `
-                    <div class="ppt-title">${ppt.title}</div>
-                    <div class="ppt-description">${ppt.description}</div>
-                    <div class="ppt-meta">
-                        <span class="ppt-date">${ppt.date}</span>
-                        <span class="ppt-status status-${ppt.status}">
-                            ${ppt.status === 'published' ? '已发布' : '草稿'}
-                        </span>
+                    <div class="ppt-content">
+                        <div class="ppt-title">${ppt.title}</div>
+                        <div class="ppt-description">${ppt.description}</div>
+                        <div class="ppt-meta">
+                            <span class="ppt-date">${ppt.date}</span>
+                            <span class="ppt-status status-${ppt.status}">
+                                ${ppt.status === 'published' ? '已发布' : '草稿'}
+                            </span>
+                        </div>
+                        ${ppt.author ? `<div style="margin-top: 10px; font-size: 0.9rem; color: #666;">👤 ${ppt.author}</div>` : ''}
                     </div>
-                    ${ppt.author ? `<div style="margin-top: 10px; font-size: 0.9rem; color: #666;">👤 ${ppt.author}</div>` : ''}
+                    <div class="ppt-actions">
+                        <a class="ppt-action ppt-view" href="${viewUrl}">查看</a>
+                        <!-- <a class="ppt-action ppt-analysis" href="${analysisUrl}" target="_blank" rel="noopener">分析</a> -->
+                        <button class="ppt-action ppt-share" type="button" data-ppt-id="${ppt.id}" data-label="复制链接" onclick="event.stopPropagation(); copyPPTLink(this)">复制链接</button>
+                    </div>
                 `;
-                
+
+                card.addEventListener('click', event => {
+                    if (event.target.closest('.ppt-actions')) {
+                        return;
+                    }
+                    window.location.href = viewUrl;
+                });
+
+                card.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        window.location.href = viewUrl;
+                    }
+                });
+
                 grid.appendChild(card);
             });
         }
