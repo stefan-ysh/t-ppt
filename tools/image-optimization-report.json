@@ -1,0 +1,85 @@
+{
+  "timestamp": "2025-10-13T19:20:14.394Z",
+  "summary": {
+    "totalFiles": 75,
+    "totalSize": "188.00 MB",
+    "largeFilesCount": 33,
+    "unusedFilesCount": 0,
+    "duplicatesCount": 0
+  },
+  "byExtension": {
+    ".png": {
+      "count": 53,
+      "size": "74.41 MB",
+      "percentage": "39.6%"
+    },
+    ".mp4": {
+      "count": 6,
+      "size": "52.21 MB",
+      "percentage": "27.8%"
+    },
+    ".jpg": {
+      "count": 10,
+      "size": "2.70 MB",
+      "percentage": "1.4%"
+    },
+    ".jpeg": {
+      "count": 2,
+      "size": "3.57 MB",
+      "percentage": "1.9%"
+    },
+    ".gif": {
+      "count": 3,
+      "size": "49.42 MB",
+      "percentage": "26.3%"
+    },
+    ".mov": {
+      "count": 1,
+      "size": "5.69 MB",
+      "percentage": "3.0%"
+    }
+  },
+  "suggestions": [
+    {
+      "type": "large-files",
+      "priority": "high",
+      "title": "🚨 大文件优化",
+      "description": "发现 33 个大文件 (>1MB)",
+      "files": [
+        {
+          "path": "ppt/luminescent-materials/public/0000.png",
+          "size": 1467381,
+          "sizeFormatted": "1.40 MB"
+        },
+        {
+          "path": "ppt/luminescent-materials/public/11 拷贝.png",
+          "size": 1129032,
+          "sizeFormatted": "1.08 MB"
+        },
+        {
+          "path": "ppt/luminescent-materials/public/1231232.png",
+          "size": 3262954,
+          "sizeFormatted": "3.11 MB"
+        },
+        {
+          "path": "ppt/luminescent-materials/public/13l.png",
+          "size": 2342593,
+          "sizeFormatted": "2.23 MB"
+        },
+        {
+          "path": "ppt/luminescent-materials/public/16-1.png",
+          "size": 6238618,
+          "sizeFormatted": "5.95 MB"
+        }
+      ],
+      "action": "建议压缩或转换为更高效的格式"
+    },
+    {
+      "type": "format-optimization",
+      "priority": "high",
+      "title": "🖼️ 格式优化",
+      "description": "总图片大小: 188.00 MB",
+      "action": "考虑转换为WebP格式以减小50-80%的文件大小"
+    }
+  ]
+}

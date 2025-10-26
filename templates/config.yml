@@ -1,0 +1,155 @@
+# PPT模板库配置文件
+
+templates:
+  academic:
+    name: "学术演示模板"
+    description: "适用于学术会议、论文展示和研究报告"
+    thumbnail: "/templates/academic/thumbnail.png"
+    tags: ["学术", "研究", "正式"]
+    difficulty: "简单"
+    components:
+      - "标题页"
+      - "目录页"
+      - "研究背景"
+      - "方法论"
+      - "实验结果"
+      - "结论"
+    features:
+      - "简洁专业的设计"
+      - "科学配色方案"
+      - "图表展示组件"
+      - "参考文献格式"
+    
+  business:
+    name: "商务展示模板"
+    description: "适用于商业汇报、项目提案和公司展示"
+    thumbnail: "/templates/business/thumbnail.png"
+    tags: ["商务", "专业", "现代"]
+    difficulty: "简单"
+    components:
+      - "公司介绍"
+      - "产品展示"
+      - "数据分析"
+      - "财务报表"
+      - "团队介绍"
+      - "联系方式"
+    features:
+      - "商务风格设计"
+      - "数据可视化"
+      - "品牌色彩支持"
+      - "响应式布局"
+      
+  creative:
+    name: "创意设计模板"
+    description: "适用于创意展示、设计作品集和艺术项目"
+    thumbnail: "/templates/creative/thumbnail.png"
+    tags: ["创意", "艺术", "个性"]
+    difficulty: "中等"
+    components:
+      - "作品展示"
+      - "设计理念"
+      - "创作过程"
+      - "技术细节"
+      - "成果展示"
+      - "个人简介"
+    features:
+      - "灵活的布局系统"
+      - "丰富的动画效果"
+      - "多媒体支持"
+      - "个性化定制"
+      
+  education:
+    name: "教育培训模板"
+    description: "适用于课程教学、培训材料和知识分享"
+    thumbnail: "/templates/education/thumbnail.png"
+    tags: ["教育", "培训", "知识"]
+    difficulty: "简单"
+    components:
+      - "课程介绍"
+      - "学习目标"
+      - "知识要点"
+      - "案例分析"
+      - "练习题目"
+      - "总结回顾"
+    features:
+      - "清晰的信息层次"
+      - "互动式组件"
+      - "进度指示器"
+      - "易读的字体"
+      
+  minimal:
+    name: "极简风格模板"
+    description: "简洁明了的设计，专注内容本身"
+    thumbnail: "/templates/minimal/thumbnail.png"
+    tags: ["极简", "清爽", "专注"]
+    difficulty: "简单"
+    components:
+      - "纯文字页面"
+      - "图片展示"
+      - "引用页面"
+      - "列表页面"
+      - "对比页面"
+      - "总结页面"
+    features:
+      - "极简设计理念"
+      - "优雅的排版"
+      - "高对比度"
+      - "快速加载"
+      
+themes:
+  light:
+    name: "亮色主题"
+    colors:
+      primary: "#2196F3"
+      secondary: "#FFC107"
+      background: "#FFFFFF"
+      text: "#333333"
+      accent: "#4CAF50"
+      
+  dark:
+    name: "暗色主题"
+    colors:
+      primary: "#BB86FC"
+      secondary: "#03DAC6"
+      background: "#121212"
+      text: "#FFFFFF"
+      accent: "#CF6679"
+      
+  gradient:
+    name: "渐变主题"
+    colors:
+      primary: "#667eea"
+      secondary: "#764ba2"
+      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+      text: "#FFFFFF"
+      accent: "#f093fb"
+      
+  nature:
+    name: "自然主题"
+    colors:
+      primary: "#4CAF50"
+      secondary: "#8BC34A"
+      background: "#F1F8E9"
+      text: "#2E7D32"
+      accent: "#FF9800"
+      
+animations:
+  fadeIn:
+    name: "淡入效果"
+    description: "元素逐渐显现"
+    duration: "0.6s"
+    
+  slideUp:
+    name: "向上滑动"
+    description: "从下方滑入视图"
+    duration: "0.8s"
+    
+  zoomIn:
+    name: "缩放进入"
+    description: "从小到大显示"
+    duration: "0.5s"
+    
+  typewriter:
+    name: "打字机效果"
+    description: "文字逐个显示"
+    duration: "2s"

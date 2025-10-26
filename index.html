@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的PPT展示站</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="基于 Slidev 的专业 PPT 展示平台，支持离线浏览和快速加载">
+    <meta name="theme-color" content="#764ba2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="PPT展示站">
+    <meta name="msapplication-TileColor" content="#667eea">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-192x192.png">
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="/src/sw-manager.js" as="script">
+    <link rel="preload" href="/src/styles/globals.css" as="style">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+        }
+        
+        .ppt-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .ppt-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 280px;
+        }
+
+        .ppt-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .ppt-content {
+            flex: 1 1 auto;
+        }
+        
+        .ppt-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .ppt-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .ppt-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #999;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .ppt-date {
+            background: #f0f0f0;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        
+        .ppt-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .status-published {
+            background: #e8f5e8;
+            color: #28a745;
+        }
+        
+        .status-draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .ppt-views {
+            background: rgba(0,0,0,0.04);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ppt-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .ppt-action {
+            flex: 0 0 auto;
+            padding: 10px 18px;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border: none;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ppt-action:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(118,75,162,0.25);
+        }
+
+        .ppt-view {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .ppt-analysis {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .ppt-share {
+            background: rgba(102,126,234,0.12);
+            color: #4c51bf;
+        }
+
+        .ppt-share-success {
+            background: rgba(16,185,129,0.15);
+            color: #0f766e;
+        }
+
+        .ppt-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        }
+
+        .ppt-action:disabled {
+            cursor: default;
+            opacity: 0.85;
+            box-shadow: none;
+            transform: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .ppt-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 PPTina</h1>
+        <p class="subtitle">存储 PPT 的在线版本</p>
+        
+        <div class="ppt-grid" id="pptGrid">
+            <!-- PPT列表将通过JavaScript动态生成 -->
+        </div>
+        
+    </div>
+
+    <script>
+        // 智能PPT发现系统
+        class PPTManager {
+            constructor() {
+                this.presentations = [];
+            }
+            
+            // 从slides.md文件中提取PPT信息
+            async extractPPTInfo(pptId) {
+                try {
+                    const response = await fetch(`./ppt/${pptId}/slides.md`);
+                    if (!response.ok) throw new Error('File not found');
+                    
+                    const content = await response.text();
+                    const frontmatter = this.parseFrontmatter(content);
+                    
+                    return {
+                        id: pptId,
+                        title: frontmatter.title || pptId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                        description: frontmatter.info || frontmatter.description || '暂无描述',
+                        date: frontmatter.date || '2024-10',
+                        status: 'published',
+                        author: frontmatter.author || '',
+                        theme: frontmatter.theme || 'default',
+                        analysisUrl: frontmatter.analysis || frontmatter.analysisUrl || ''
+                    };
+                } catch (error) {
+                    // 如果无法读取slides.md，返回默认信息
+                    return {
+                        id: pptId,
+                        title: pptId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+                        description: '点击查看演示文稿',
+                        date: '2024-10',
+                        status: 'published',
+                        author: '',
+                        theme: 'default',
+                        analysisUrl: ''
+                    };
+                }
+            }
+            
+            // 解析frontmatter
+            parseFrontmatter(content) {
+                const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+                if (!frontmatterMatch) return {};
+                
+                const frontmatterText = frontmatterMatch[1];
+                const result = {};
+                
+                // 简单的YAML解析
+                frontmatterText.split('\n').forEach(line => {
+                    const match = line.match(/^(\w+):\s*(.+)$/);
+                    if (match) {
+                        const [, key, value] = match;
+                        // 清理引号和多行文本
+                        result[key] = value.replace(/^["']|["']$/g, '').split('|')[0].trim();
+                    }
+                });
+                
+                return result;
+            }
+            
+            // 自动发现所有PPT
+            async discoverPresentations() {
+                // 预定义的PPT列表（可以手动维护）
+                const knownPPTs = ['luminescent-materials', 'new-presentation'];
+                
+                for (const pptId of knownPPTs) {
+                    try {
+                        const pptInfo = await this.extractPPTInfo(pptId);
+                        this.presentations.push(pptInfo);
+                    } catch (error) {
+                        console.warn(`无法加载PPT: ${pptId}`, error);
+                    }
+                }
+                
+                return this.presentations;
+            }
+        }
+
+    // 基于 localStorage 的简单浏览量统计
+        const viewCountCache = new Map();
+
+        function updateViewBadge(pptId, count) {
+            const badge = document.querySelector(`.ppt-views[data-ppt-id="${pptId}"]`);
+            if (badge) {
+                badge.textContent = `👁️ ${count}`;
+            }
+        }
+
+        async function fetchViewCount(pptId) {
+            if (viewCountCache.has(pptId)) {
+                return viewCountCache.get(pptId);
+            }
+
+            try {
+                const response = await fetch(`/api/views?ppt=${encodeURIComponent(pptId)}`, {
+                    method: 'GET',
+                    headers: { 'accept': 'application/json' },
+                    cache: 'no-store'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`获取浏览量失败: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const count = typeof data.count === 'number' ? data.count : 0;
+                viewCountCache.set(pptId, count);
+                updateViewBadge(pptId, count);
+                return count;
+            } catch (error) {
+                console.warn(`无法获取 ${pptId} 的浏览量`, error);
+                return 0;
+            }
+        }
+
+        function optimisticIncrement(pptId) {
+            const current = viewCountCache.get(pptId) || 0;
+            const next = current + 1;
+            viewCountCache.set(pptId, next);
+            updateViewBadge(pptId, next);
+            return next;
+        }
+
+        function recordView(pptId) {
+            optimisticIncrement(pptId);
+            const url = `/api/views?ppt=${encodeURIComponent(pptId)}`;
+            const payload = JSON.stringify({ event: 'home-view' });
+
+            if (navigator.sendBeacon) {
+                const blob = new Blob([payload], { type: 'application/json' });
+                navigator.sendBeacon(url, blob);
+                return;
+            }
+
+            fetch(url, {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: payload,
+                keepalive: true
+            }).catch(error => {
+                console.warn(`同步 ${pptId} 浏览量失败`, error);
+            });
+        }
+
+        async function copyPPTLink(button) {
+            // 复制演示文稿链接到剪贴板
+            const pptId = button.getAttribute('data-ppt-id');
+            const link = `${window.location.origin}/ppt/${pptId}/`;
+            const originalLabel = button.getAttribute('data-label') || button.textContent;
+
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(link);
+                } else {
+                    // 旧浏览器降级方案
+                    const textarea = document.createElement('textarea');
+                    textarea.value = link;
+                    textarea.style.position = 'fixed';
+                    textarea.style.opacity = '0';
+                    document.body.appendChild(textarea);
+                    textarea.focus();
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                }
+
+                button.textContent = '复制成功';
+                button.classList.add('ppt-share-success');
+                button.disabled = true;
+
+                setTimeout(() => {
+                    button.textContent = originalLabel;
+                    button.classList.remove('ppt-share-success');
+                    button.disabled = false;
+                }, 3000);
+            } catch (error) {
+                console.error('复制失败:', error);
+                const fallback = prompt('复制以下链接分享PPT:', link);
+                if (fallback !== null) {
+                    button.textContent = '复制成功';
+                    button.classList.add('ppt-share-success');
+                    button.disabled = true;
+                    setTimeout(() => {
+                        button.textContent = originalLabel;
+                        button.classList.remove('ppt-share-success');
+                        button.disabled = false;
+                    }, 3000);
+                }
+            }
+        }
+        function renderPresentations(presentations) {
+            const grid = document.getElementById('pptGrid');
+            grid.innerHTML = ''; // 清空现有内容
+            
+            if (presentations.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: rgba(255,255,255,0.8);">
+                        <h3>暂无PPT</h3>
+                        <p>请在 ppt/ 目录下添加您的演示文稿</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            presentations.forEach(ppt => {
+                const viewUrl = `./ppt/${ppt.id}/`;
+                const card = document.createElement('div');
+                card.className = 'ppt-card';
+                card.setAttribute('tabindex', '0');
+                const viewCount = viewCountCache.get(ppt.id) ?? 0;
+
+                card.innerHTML = `
+                    <div class="ppt-content">
+                        <div class="ppt-title">${ppt.title}</div>
+                        <div class="ppt-description">${ppt.description}</div>
+                        <div class="ppt-meta">
+                            <span class="ppt-date">${ppt.date}</span>
+                            <span class="ppt-status status-${ppt.status}">
+                                ${ppt.status === 'published' ? '已发布' : '草稿'}
+                            </span>
+                            <span class="ppt-views" data-ppt-id="${ppt.id}">👁️ ${viewCount}</span>
+                        </div>
+                        ${ppt.author ? `<div style="margin-top: 10px; font-size: 0.9rem; color: #666;">👤 ${ppt.author}</div>` : ''}
+                    </div>
+                    <div class="ppt-actions">
+                        <a class="ppt-action ppt-view" href="${viewUrl}">查看</a>
+                        <button class="ppt-action ppt-share" type="button" data-ppt-id="${ppt.id}" data-label="复制链接">复制链接</button>
+                    </div>
+                `;
+
+                card.addEventListener('click', event => {
+                    if (event.target.closest('.ppt-actions')) {
+                        return;
+                    }
+                    recordView(ppt.id);
+                    window.location.href = viewUrl;
+                });
+
+                card.addEventListener('keydown', event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        recordView(ppt.id);
+                        window.location.href = viewUrl;
+                    }
+                });
+
+                const viewLink = card.querySelector('.ppt-view');
+                if (viewLink) {
+                    viewLink.addEventListener('click', () => recordView(ppt.id));
+                }
+
+                const shareButton = card.querySelector('.ppt-share');
+                if (shareButton) {
+                    shareButton.addEventListener('click', event => {
+                        event.stopPropagation();
+                        copyPPTLink(shareButton);
+                    });
+                }
+
+                grid.appendChild(card);
+
+                // 异步刷新浏览量
+                fetchViewCount(ppt.id).catch(() => {
+                    updateViewBadge(ppt.id, viewCountCache.get(ppt.id) ?? 0);
+                });
+            });
+        }
+
+        // 页面加载完成后自动发现并渲染PPT列表
+        document.addEventListener('DOMContentLoaded', async () => {
+            const manager = new PPTManager();
+            
+            // 显示加载状态
+            const grid = document.getElementById('pptGrid');
+            grid.innerHTML = `
+                <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: rgba(255,255,255,0.8);">
+                    <div style="margin-bottom: 20px;">🔍</div>
+                    <p>正在扫描PPT...</p>
+                </div>
+            `;
+            
+            try {
+                const presentations = await manager.discoverPresentations();
+                renderPresentations(presentations);
+            } catch (error) {
+                console.error('加载PPT失败:', error);
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: rgba(255,255,255,0.8);">
+                        <div style="margin-bottom: 20px;">❌</div>
+                        <p>加载PPT失败，请检查网络连接</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+    
+    <!-- Service Worker Manager -->
+    <script src="/src/sw-manager.js"></script>
+    <script src="/_vercel/insights/script.js" async></script>
+</body>
+</html>

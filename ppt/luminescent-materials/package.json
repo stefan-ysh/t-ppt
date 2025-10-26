@@ -1,0 +1,37 @@
+{
+  "name": "luminescent-materials-ppt",
+  "version": "1.0.0",
+  "description": "长余辉自发光材料演示文稿",
+  "type": "module",
+  "scripts": {
+    "build": "slidev build --base /ppt/luminescent-materials/ --out ../../dist/ppt/luminescent-materials",
+    "dev": "slidev --open",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^52.2.4",
+    "@slidev/theme-default": "^0.25.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.545.0",
+    "slidev-addon-qrcode": "^1.0.2",
+    "tailwind-merge": "^3.3.1",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@iconify-json/heroicons": "^1.2.3",
+    "@iconify-json/mdi": "^1.2.3",
+    "@types/node": "^20.0.0",
+    "playwright-chromium": "^1.40.0",
+    "prettier": "^3.6.2",
+    "prettier-plugin-slidev": "^1.0.5"
+  },
+  "keywords": [
+    "slidev",
+    "presentation",
+    "vue",
+    "markdown"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
