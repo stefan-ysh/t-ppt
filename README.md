@@ -1,206 +1,245 @@
-# 🎨 我的PPT展示站
+# Next.js + Reveal.js 演示文稿中心
 
-一个基于 [Slidev](https://sli.dev/) 的PPT展示网站，支持多个演示文稿的管理和展示。
+这是一个基于 Next.js 和 Reveal.js 的多演示文稿管理平台。支持多个 PPT 演示文稿，通过首页列表选择查看不同的演示内容。
 
-> � **全面优化版本** - 包含构建优化、图片分析、开发工具等完整功能！
+## 功能特性
 
-## ⚡ 快速开始
+- 📋 **演示文稿列表** - 首页展示所有可用的 PPT
+- 🎨 **美观的卡片设计** - 每个 PPT 都有缩略图、标题、作者等信息
+- 🔗 **动态路由** - 点击卡片进入对应的演示文稿
+- 🏠 **一键返回** - 演示页面有返回首页按钮
+- ✨ **平滑过渡** - 卡片悬停效果和页面切换动画
+- 👁️ **浏览量统计** - 基于 Vercel KV 的实时浏览量跟踪
 
-```bash
-# 🎯 一键启动开发工具菜单 (推荐)
-./scripts/dev-tools.sh
+## 技术栈
 
-# 🏗️ 统一构建 (最佳性能 + 跨平台)
-npm run build
+- **Next.js 14** - React 框架
+- **TypeScript** - 类型安全
+- **Tailwind CSS** - 样式框架
+- **Reveal.js** - 演示文稿库
+- **Vercel KV** - 边缘数据库（浏览量存储）
 
-# 🏗️ 增强构建 (并行处理版本)
-npm run build:enhanced
+## 快速开始
 
-# 📊 图片优化分析
-npm run optimize:images
-
-# 🧹 项目清理和优化
-./scripts/template-cleanup.sh
-```
-
-## 📁 项目结构
-
-```
-├── 📁 docs/                   # 📚 项目文档
-│   ├── DEPLOYMENT.md          # 部署指南
-│   ├── PROJECT-STRUCTURE.md   # 项目结构说明
-│   └── OPTIMIZATION-*.md      # 优化相关文档
-├── 📁 scripts/                # 🔧 构建和开发脚本
-│   ├── build-unified.js       # 统一构建脚本 (推荐)
-│   ├── build.js              # 传统构建脚本
-│   ├── template-cleanup.sh    # 模板清理工具
-│   └── organize-files.sh      # 文件整理工具
-├── 📁 src/                    # 💻 源代码
-│   ├── styles/               # 样式文件
-│   └── sw.js                 # Service Worker
-├── 📁 ppt/                    # 📄 PPT项目目录
-├── 📁 tools/                  # 🛠️ 开发工具和分析脚本
-└── 📁 shared/                 # 🤝 共享组件
-├── 📄 index.html              # 首页文件
-└── 📄 build.js                # Node.js构建脚本
-```
-
-## 🎯 特性
-
-- ✅ 响应式设计，支持移动端
-- ✅ 多PPT管理
-- ✅ 优雅的首页展示
-- ✅ 基于Slidev的现代PPT体验
-- ✅ 一键部署到Vercel
-- ✅ 支持自定义主题和组件
-
-## 🚀 快速开始
-
-### 安装依赖
+### 1. 安装依赖
 
 ```bash
-npm run install:all
+cd nextjs-reveal
+pnpm install
+# 或
+npm install
+# 或
+yarn install
 ```
 
-### 创建新PPT
+### 2. 复制图片资源
+
+将以下图片复制到 `public/images/` 文件夹：
+- `bj.jpg` - 首页背景图
+- `tina.png` - 个人照片
+- `chart.png` - 研究方向饼状图
+
+### 3. 启动开发服务器
 
 ```bash
-# 创建新PPT（一行命令搞定！）
-./create-ppt.sh my-awesome-ppt "我的精彩演示"
-
-# 查看帮助
-./create-ppt.sh --help
-```
-
-### 开发模式
-
-```bash
-# 查看所有可用命令
+pnpm dev
+# 或
 npm run dev
-
-# 开发首页
-npm run dev:home
-
-# 开发特定PPT
-cd ppt/[ppt-name]
-npm run dev
-
-# 查看所有PPT
-npm run list-ppts
 ```
 
-### 构建部署
+在浏览器中打开 [http://localhost:3000](http://localhost:3000)
+
+## 浏览量功能配置
+
+本项目使用 Vercel KV 来存储浏览量数据。在 Vercel 上部署时：
+
+### 1. 创建 KV 数据库
+
+1. 在 [Vercel Dashboard](https://vercel.com/dashboard) 中打开你的项目
+2. 进入 **Storage** 标签
+3. 点击 **Create Database**
+4. 选择 **KV** (Key-Value Store)
+5. 创建数据库后，环境变量会自动注入到你的项目中
+
+### 2. 本地开发（可选）
+
+如果需要在本地测试浏览量功能：
+
+1. 在 Vercel Dashboard 的 KV 数据库设置中找到 REST API 凭证
+2. 复制 `.env.local.example` 为 `.env.local`
+3. 填入你的 KV 凭证：
 
 ```bash
-# 一键构建所有PPT
-npm run build
-
-# 本地预览
-npm run preview
-
-# 清理所有构建文件
-npm run clean
+KV_REST_API_URL=your_kv_rest_api_url
+KV_REST_API_TOKEN=your_kv_rest_api_token
+KV_REST_API_READ_ONLY_TOKEN=your_kv_rest_api_read_only_token
 ```
 
-## 📝 添加新的PPT
+### 浏览量 API
 
-**超级简单！一行命令搞定：**
+- `GET /api/views?ppt=<ppt-id>` - 获取指定 PPT 的浏览量
+- `POST /api/views?ppt=<ppt-id>` - 增加指定 PPT 的浏览量
+
+浏览量会自动显示在：
+- 首页 PPT 卡片上（仅显示）
+- PPT 详情页右上角（显示并自动增加）
+
+## 项目结构
+
+```
+nextjs-reveal/
+├── app/
+│   ├── layout.tsx                    # 根布局
+│   ├── page.tsx                      # 首页（PPT 列表）
+│   ├── presentation/[id]/page.tsx    # 动态路由（演示页面）
+│   └── globals.css
+├── components/
+│   ├── PresentationWrapper.tsx       # Reveal.js 包装组件
+│   ├── presentations/                # 各个演示文稿
+│   │   ├── luminescent-materials/
+│   │   │   ├── index.tsx
+│   │   │   └── slides/
+│   │   │       ├── Slide1.tsx
+│   │   │       ├── Slide2.tsx
+│   │   │       └── Slide3.tsx
+│   │   ├── luminescent-materials.tsx # 顶层 re-export
+│   │   ├── sample/
+│   │   │   ├── index.tsx
+│   │   │   └── slides/
+│   │   │       ├── Slide1.tsx
+│   │   │       ├── Slide2.tsx
+│   │   │       ├── Slide3.tsx
+│   │   │       └── Slide4.tsx
+│   │   └── sample.tsx                # 顶层 re-export
+├── public/
+│   └── images/                       # 图片资源
+├── package.json
+└── README.md
+```
+
+## 功能特性
+
+- ✅ 响应式设计
+- ✅ Tailwind CSS 样式
+- ✅ TypeScript 类型检查
+- ✅ 组件化幻灯片
+- ✅ Reveal.js 完整功能支持
+- ✅ 键盘导航
+- ✅ 触摸支持
+
+## 使用说明
+
+### 添加新的演示文稿
+
+#### 1. 使用脚本快速创建结构
 
 ```bash
-./create-ppt.sh [ppt-name] [title]
+chmod +x create-ppt.sh  # 首次运行需赋予执行权限
+./create-ppt.sh
 ```
 
-**示例：**
+根据提示输入 ID、标题等信息，脚本会自动生成：
+
+- `components/presentations/<ppt-id>/index.tsx`
+- `components/presentations/<ppt-id>/slides/Slide1.tsx` 等基础幻灯片
+- `components/presentations/<ppt-id>.tsx` 顶层导出文件
+
+可根据需要补充或删除默认幻灯片。
+
+#### 2. 在首页添加 PPT 信息
+
+编辑 `app/page.tsx`，在 `presentations` 数组中添加：
+
+```tsx
+const presentations = [
+  // ...现有的 PPT
+  {
+    id: 'my-presentation',           // 路由 ID
+    title: '我的演示文稿',
+    subtitle: '这是演示文稿的描述',
+    author: '作者名',
+    department: '单位名称',
+    thumbnail: '/images/my-thumbnail.jpg',
+    date: '2024年',
+    slides: 15,
+  },
+]
+```
+
+#### 3. 注册路由
+
+编辑 `app/presentation/[id]/page.tsx`，添加映射：
+
+```tsx
+const presentations = {
+  // ...现有的映射
+  'my-presentation': {
+    title: '我的演示文稿',
+    slides: 'my-presentation',
+  },
+}
+```
+
+#### 4. 添加到包装器
+
+编辑 `components/PresentationWrapper.tsx`：
+
+```tsx
+// 导入
+import MyPresentationSlides from './presentations/my-presentation'
+
+// 在 renderSlides() 中添加
+case 'my-presentation':
+  return <MyPresentationSlides />
+```
+
+### 添加单个幻灯片到现有演示
+
+在对应的演示文稿组件中添加新的 `<section>`：
+
+```tsx
+<section data-background="#your-color">
+  <h2>新幻灯片标题</h2>
+  <div className="content">
+    {/* 你的内容 */}
+  </div>
+</section>
+```
+
+### 自定义 Reveal.js 配置
+
+在 `components/PresentationWrapper.tsx` 中修改配置：
+
+```tsx
+revealRef.current = new Reveal(deckRef.current, {
+  controls: true,        // 显示控制按钮
+  progress: true,        // 显示进度条
+  center: true,          // 内容垂直居中
+  hash: true,            // URL 同步
+  transition: 'slide',   // 切换效果
+  width: 1920,          // 宽度
+  height: 1080,         // 高度
+})
+```
+
+## 键盘快捷键
+
+- **方向键** - 导航幻灯片
+- **Space** - 下一张
+- **ESC** - 幻灯片总览
+- **F** - 全屏模式
+- **S** - 演讲者模式
+
+## 构建部署
 
 ```bash
-# 创建AI主题PPT
-./create-ppt.sh ai-presentation "人工智能技术分享"
+# 生产构建
+pnpm build
 
-# 创建产品介绍PPT
-./create-ppt.sh product-intro "产品功能介绍"
+# 启动生产服务器
+pnpm start
 ```
 
-**自动完成：**
+## License
 
-- ✅ 创建PPT目录和文件结构
-- ✅ 生成配置文件和模板
-- ✅ 复制共享组件和样式
-- ✅ 更新首页PPT列表
-- ✅ 提供开发和构建指南
-
-**然后：**
-
-1. 编辑 `ppt/[ppt-name]/slides.md`
-2. `cd ppt/[ppt-name] && npm run dev` 开始开发
-3. `npm run build` 构建所有PPT
-
-## 🌐 部署到Vercel
-
-1. 推送代码到GitHub
-2. 在Vercel中导入项目
-3. Vercel会自动执行 `npm run build`
-4. 访问你的PPT展示站
-
-### 浏览量统计（Vercel KV）
-
-项目内置了一个 `api/views` 边缘函数并使用 [Vercel KV](https://vercel.com/docs/storage/vercel-kv) 存储浏览量。部署前需要：
-
-1. 在 Vercel Dashboard 中为该项目启用 **Vercel KV**。
-2. 在项目环境变量里填写：
-   - `KV_URL`
-   - `KV_REST_API_URL`
-   - `KV_REST_API_TOKEN`
-   - `KV_REST_API_READ_ONLY_TOKEN`
-
-   （本地调试可参考 `.env.example`）
-
-3. 部署后访问 `/api/views?ppt=<ppt-id>` 可以查看当前计数；首页会自动请求并更新每个 PPT 的浏览量。
-
-### Vercel配置
-
-项目已包含 `vercel.json` 配置文件，支持：
-
-- 自动构建
-- 正确的路由配置
-- 静态文件服务
-
-## 📚 了解更多
-
-- [Slidev 文档](https://sli.dev/)
-- [Vue.js 文档](https://vuejs.org/)
-- [Vercel 部署指南](https://vercel.com/docs)
-
-## 📁 项目文件结构
-
-```
-├── 📁 docs/                   # 项目文档
-│   ├── DEPLOYMENT.md          # 部署指南
-│   ├── PROJECT-STRUCTURE.md   # 项目结构说明
-│   └── OPTIMIZATION-*.md      # 优化相关文档
-├── 📁 scripts/                # 构建和开发脚本
-│   ├── build-unified.js       # 统一构建脚本 (推荐)
-│   ├── build.js              # 传统构建脚本
-│   ├── template-cleanup.sh    # 模板清理工具
-│   └── 其他脚本...
-├── 📁 src/                    # 源代码
-│   ├── styles/               # 样式文件
-│   └── sw.js                 # Service Worker
-├── 📁 ppt/                    # PPT项目目录
-└── 📁 tools/                  # 开发工具
-```
-
-### 🚀 主要命令
-
-```bash
-# 构建 (使用统一构建脚本)
-npm run build
-
-# 开发模式
-npm run dev
-
-# 项目清理
-npm run cleanup
-
-# 本地预览
-npm run preview
-```
+MIT
