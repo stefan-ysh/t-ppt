@@ -1,6 +1,4 @@
 <<<<<<< HEAD
-{}
-=======
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
@@ -18,4 +16,3 @@
     { "source": "/ppt/([^/]+)", "destination": "/ppt/$1/index.html" }
   ]
 }
->>>>>>> parent of 614604d8 (Migrate project to Next.js and Reveal.js)
